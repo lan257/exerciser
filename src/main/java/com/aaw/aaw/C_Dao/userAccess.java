@@ -1,4 +1,4 @@
-package com.aaw.aaw.C_dataAccess;
+package com.aaw.aaw.C_Dao;
 
 import com.aaw.aaw.O_solidObjects.user;
 import org.apache.ibatis.annotations.Mapper;

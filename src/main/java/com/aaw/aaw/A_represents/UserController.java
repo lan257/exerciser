@@ -1,7 +1,7 @@
 package com.aaw.aaw.A_represents;
 
-import com.aaw.aaw.B_logic.pUserLogic;
-import com.aaw.aaw.B_logic.userLogic;
+import com.aaw.aaw.B_Service.pUserLogic;
+import com.aaw.aaw.B_Service.userLogic;
 import com.aaw.aaw.H_tool.jwt;
 import com.aaw.aaw.O_solidObjects.simpleObjects.Result;
 import com.aaw.aaw.O_solidObjects.simpleObjects.privateUser;
@@ -18,7 +18,7 @@ import java.util.List;
 @Slf4j
 @RestController
 @CrossOrigin(origins = {"*"})
-public class UserControl {
+public class UserController {
     @Autowired
     private pUserLogic pUserLogic;
     @Autowired

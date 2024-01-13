@@ -33,7 +33,7 @@ public class interceptor implements HandlerInterceptor{
 
         String token = request.getHeader("Authorization");
         log.info("jwt令牌："+token);
-        log.info("请求开始，URL: {}", request.getRequestURI());
+        log.info("请求开始，URL: "+ request.getRequestURI());
         user u;
         jwt key = new jwt();
         try {
@@ -72,7 +72,7 @@ public class interceptor implements HandlerInterceptor{
                            Object handler,
                            ModelAndView modelAndView) throws Exception {
         // 在处理器方法执行后但在视图渲染之前执行的逻辑
-        log.info("postHandle 方法执行，URL: {}", request.getRequestURI());
+        log.info("postHandle 方法执行，URL: "+ request.getRequestURI());
     }
 
     @Override
@@ -81,7 +81,7 @@ public class interceptor implements HandlerInterceptor{
                                 Object handler,
                                 Exception ex) throws Exception {
         // 在整个请求处理完成后执行的逻辑
-        log.info("afterCompletion 方法执行，URL: {}", request.getRequestURI());
+        log.info("afterCompletion 方法执行，URL: "+ request.getRequestURI());
     }
 
     //登录检测

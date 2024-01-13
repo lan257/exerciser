@@ -1,6 +1,6 @@
-package com.aaw.aaw.B_logic;
+package com.aaw.aaw.B_Service;
 
-import com.aaw.aaw.C_dataAccess.userAccess;
+import com.aaw.aaw.C_Dao.userAccess;
 import com.aaw.aaw.O_solidObjects.user;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
