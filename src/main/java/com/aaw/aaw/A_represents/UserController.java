@@ -43,6 +43,10 @@ public class UserController {
             } else return new Result(2, u.getNikename() +"用户登录成功", j);
         }
     }
-
-
+    @PostMapping("aaw/sign")
+    public Result sign(@RequestBody user u){
+     pUserLogic.sign(u.getPrivateUser());
+     userLogic.sign(u);
+     return new Result(1,"注册成功","");
+    }
 }

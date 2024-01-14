@@ -17,5 +17,10 @@ public class userLogic implements Logic {
     public user getUser_Uid(int pUid) {
         return userAccess.getUser_Uid(pUid);
     }
+
+    public void sign(user u) {
+        u.getPrivateUser().setUid(userAccess.login(u.getPrivateUser().getEmail(),u.getPrivateUser().getPassword()).get(0));
+        userAccess.usign(u.getPrivateUser().getUid(), u.getNikename(),u.getChange().toString());
+    }
 }
 
