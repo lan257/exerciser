@@ -2,7 +2,7 @@ package com.aaw.aaw.U_interceper;
 
 public class intersect {
     boolean isExcludedURI(String requestURI) {
-        return requestURI.equals("/aaw/login") || requestURI.equals("/aaw/sign");//登录注册跳过拦截
+        return requestURI.equals("/aaw/login") || requestURI.equals("/aaw/sign")||requestURI.equals("/aaw/sign1");//登录注册跳过拦截
     }
 
 //    boolean isFetchRequest(HttpServletRequest request) {

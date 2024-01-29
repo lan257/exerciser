@@ -7,6 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Objects;
+
 @Slf4j
 @Service
 @RestController
@@ -19,8 +24,16 @@ public class userLogic implements Logic {
     }
 
     public void sign(user u) {
-        u.getPrivateUser().setUid(userAccess.login(u.getPrivateUser().getEmail(),u.getPrivateUser().getPassword()).get(0));
-        userAccess.usign(u.getPrivateUser().getUid(), u.getNikename(),u.getChange().toString());
+        u.setUid(userAccess.login(u.getEmail(),u.getPassword()).get(0));
+        LocalDateTime change= LocalDateTime.now();
+        userAccess.usign(u.getUid(), u.getNickname(),u.getEmail(),u.getImg(),change.toString());
+    }
+
+    public List<user> selectUser(user u) {
+        if(Objects.equals(u.getNickname(), "all")){
+            return userAccess.getUserall();
+        }else {
+        return userAccess.getUser(u.getUid(),u.getNickname(),u.getType());}
     }
 }
 

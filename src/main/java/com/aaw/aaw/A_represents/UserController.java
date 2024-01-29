@@ -2,18 +2,23 @@ package com.aaw.aaw.A_represents;
 
 import com.aaw.aaw.B_Service.pUserLogic;
 import com.aaw.aaw.B_Service.userLogic;
+import com.aaw.aaw.H_tool.fileSubmit;
 import com.aaw.aaw.H_tool.jwt;
 import com.aaw.aaw.O_solidObjects.simpleObjects.Result;
-import com.aaw.aaw.O_solidObjects.simpleObjects.privateUser;
 import com.aaw.aaw.O_solidObjects.user;
+import com.google.gson.Gson;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
+import java.util.UUID;
 
 @Slf4j
 @RestController
@@ -23,8 +28,10 @@ public class UserController {
     private pUserLogic pUserLogic;
     @Autowired
     private userLogic userLogic;
+
+    String nn;
     @PostMapping("aaw/login")
-    public Result login(@RequestBody privateUser privateUser ) {
+    public Result login(@RequestBody user privateUser ) {
 
         List<Integer> list = pUserLogic.login(privateUser);//调取数据库查询用户
         if (list.isEmpty()) {
@@ -37,16 +44,42 @@ public class UserController {
             String j = k.setJwt(u);//生成令牌
             log.info("生成令牌：" + j);
             if (u.getType() == 0) {
-                return new Result(1, u.getNikename() +"root登录成功", j);
+                return new Result(1, u.getNickname() +"root登录成功", j);
             } else if (u.getType() == 1) {
-                return new Result(-1, u.getNikename() +"vip登录成功", j);
-            } else return new Result(2, u.getNikename() +"用户登录成功", j);
+                return new Result(-1, u.getNickname() +"vip登录成功", j);
+            } else return new Result(2, u.getNickname() +"用户登录成功", j);
         }
     }
-    @PostMapping("aaw/sign")
-    public Result sign(@RequestBody user u){
-     pUserLogic.sign(u.getPrivateUser());
-     userLogic.sign(u);
-     return new Result(1,"注册成功","");
+    fileSubmit fileSubmit = new fileSubmit();
+    //上传图片
+    @PostMapping(value = "/aaw/sign")
+    public ResponseEntity<String> handleFileUpload(@RequestParam("file") MultipartFile file) throws IOException {
+        nn= fileSubmit.submit(file,"userImg");
+        // 处理文件上传成功逻辑
+        return new ResponseEntity<>("File uploaded successfully", HttpStatus.OK);
+    }
+
+    @PostMapping("aaw/sign1")
+    public Result signIn(@RequestBody user u) throws IOException {
+        if (nn!=null){
+        u.setImg(nn);
+        pUserLogic.sign(u);
+        userLogic.sign(u);
+        return new Result(1,"注册成功","") ;}
+        return new Result(0,"注册失败,有可能是文件太大了","");
+    }
+    @PostMapping("aaw/selectUser")
+    public Result selectUser(@RequestBody user u){
+        List<user> s =userLogic.selectUser(u);
+        log.info(s.toString());
+        return new Result(1,"查询成功",s);
+    }
+
+    @PostMapping("aaw/getUserJwt")
+    public Result getUserJwt(HttpServletRequest request){
+        user jwtInfo = (user) request.getAttribute("jwtInfo");
+        user me= userLogic.selectUser(jwtInfo).get(0);
+        log.info(me.toString());
+        return new Result(1,"提取成功",me);
     }
 }

@@ -14,7 +14,7 @@ public class jwt {
 
         Map<String,Object> claims =new HashMap<>();
         claims.put("userId",user.getUid());
-        claims.put("nikeName",user.getNikename());
+        claims.put("nickName",user.getNickname());
         claims.put("userType",user.getType());
         //System.out.println(jwt);
 
@@ -32,7 +32,7 @@ public class jwt {
 
         user user=new user();
         user.setUid(claims.get("userId", Integer.class));
-        user.setNikename(claims.get("nikeName", String.class));
+        user.setNickname(claims.get("nickName", String.class));
         user.setType(claims.get("userType", Integer.class));
         return user;
     }

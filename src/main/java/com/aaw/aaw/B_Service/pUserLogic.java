@@ -1,6 +1,6 @@
 package com.aaw.aaw.B_Service;
 import com.aaw.aaw.C_Dao.userAccess;
-import com.aaw.aaw.O_solidObjects.simpleObjects.privateUser;
+import com.aaw.aaw.O_solidObjects.user;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,14 +15,14 @@ public class pUserLogic implements Logic {
     @Autowired
     private userAccess userAccess;
 
-    public List<Integer> login(privateUser privateUser) {
+    public List<Integer> login(user privateUser) {
         log.info(""+privateUser.getEmail()+privateUser.getPassword());
 
         List<Integer> u=userAccess.login(privateUser.getEmail(),privateUser.getPassword());
         return u;
     }
 
-    public void sign(privateUser u) {
+    public void sign(user u) {
         userAccess.pusign(u.getEmail(),u.getPassword());
     }
 }
