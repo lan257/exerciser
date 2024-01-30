@@ -21,7 +21,7 @@ public class jwt {
         return Jwts.builder()
                 .signWith(SignatureAlgorithm.HS256,"androidAndWeb")//安卓web跨平台，2024.1.11
                 .setClaims(claims)//内存数据
-                .setExpiration(new Date(System.currentTimeMillis()+3600*1000))
+                .setExpiration(new Date(System.currentTimeMillis()+100*3600*1000))
                 .compact();
     }
     public user getJwt(String jwt){

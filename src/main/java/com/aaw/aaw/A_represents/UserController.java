@@ -74,7 +74,12 @@ public class UserController {
         log.info(s.toString());
         return new Result(1,"查询成功",s);
     }
-
+    @PostMapping("aaw/uid/selectUser")
+    public Result selectUserByUid(@RequestBody user u){
+        user s =userLogic.selectUserByUid(u);
+        log.info(s.toString());
+        return new Result(1,"查询成功",s);
+    }
     @PostMapping("aaw/getUserJwt")
     public Result getUserJwt(HttpServletRequest request){
         user jwtInfo = (user) request.getAttribute("jwtInfo");

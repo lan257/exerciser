@@ -35,5 +35,9 @@ public class userLogic implements Logic {
         }else {
         return userAccess.getUser(u.getUid(),u.getNickname(),u.getType());}
     }
+
+    public user selectUserByUid(user u) {
+        return userAccess.getUserByUid(u.getUid());
+    }
 }
 
