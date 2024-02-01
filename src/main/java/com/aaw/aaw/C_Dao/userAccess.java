@@ -26,8 +26,8 @@ public interface userAccess {
     void usign(int uid, String nickname, String email,String img, String change);
 
 
-    @Select("select * from user")
-//    @Select("select * from user  where(uid>33)")
+//    @Select("select * from user")
+    @Select("select * from user  where(uid>33)")
     List<user> getUserall();
     @Select("select * from user  where(uid=#{uid})")
     user getUserByUid(int uid);
