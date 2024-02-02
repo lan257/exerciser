@@ -13,9 +13,9 @@ import java.util.List;
 public interface videoAccess {
     @Insert("insert into video (vName, vIntro, vUrl,vChange,uid, img, ins) value (#{vName},#{vIntro},#{vUrl},#{vChange},#{uid},#{img},#{ins})")
     void submit(String vName, String vIntro, String vUrl, LocalDateTime vChange, int uid, String img, int ins);
-@Select("select * from video ")
+    @Select("select * from video ORDER BY RAND() LIMIT 10")
     List<video> getVideoAll();
-    @Select("SELECT * FROM video WHERE (vid = #{vid} OR #{vid} = 0) AND (video.vName REGEXP #{vName}) AND (uid = #{uid} or #{uid} = 1)")
+    @Select("SELECT * FROM video WHERE (vid = #{vid} OR #{vid} = 0) AND (video.vName REGEXP #{vName}) AND (uid = #{uid} or #{uid} = 1) ORDER BY RAND() LIMIT 5")
     List<video> getVideo(int vid, String vName, int uid);
 
     @Select("select * from video where (vid=#{vid})")

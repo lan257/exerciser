@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @Slf4j
 @Service
 @RestController
@@ -17,5 +19,9 @@ public class ActLogic {
     public void aConListSubmit(activity activity) {
         AA.aConListSubmit(activity.getUid(),activity.getChangeTime(),activity.getContext(),activity.getTitleText(),
                 activity.getTitleImg(),activity.getType());
+    }
+
+    public List<activity> getActList() {
+        return AA.getActList();
     }
 }

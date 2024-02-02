@@ -40,4 +40,10 @@ public class activityController {
         AL.aConListSubmit(activity);
         return new Result(1,"上传成功","");
     }
+
+    @PostMapping("/aaw/getActList")
+    public Result getActList(HttpServletRequest request){
+        List<activity> activitys=AL.getActList();
+        return new Result(1,"获取活动成功",activitys);
+    }
 }

@@ -27,8 +27,9 @@ public class chatLogic implements Logic{
            String time= LocalDateTime.now().toString();
            msg msg=new msg(c.getUserA(),"你好，我们现在可以开始私聊了",time);
            c.SETFinMsg(msg);
+           LocalDateTime CChange=LocalDateTime.now();
            c.addMsgData();
-           CA.insertChat(c.getChatId(),c.getUserA(),c.getUserB(),c.getMsgData(),c.getFinMsg());
+           CA.insertChat(c.getChatId(),c.getUserA(),c.getUserB(),c.getMsgData(),c.getFinMsg(),CChange.toString());
            chat = CA.selectChat(c.getChatId());
        }
            log.info(chat+"");
