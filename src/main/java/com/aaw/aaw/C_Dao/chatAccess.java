@@ -16,8 +16,8 @@ public interface chatAccess {
 
     @Insert("insert into chat (chatId, userA, userB, msgData,finMsg,`change`) VALUE (#{chatId},#{userA},#{userB},#{msgData},#{finMsg},#{change}) ")
     void insertChat(int chatId, int userA, int userB, String msgData, String finMsg, String change);
-    @Update("update chat set msgData=#{msgData},finMsg=#{finMsg}where(chatId=#{chatId})")
-    void update(String msgData, String finMsg, int chatId);
+    @Update("update chat set msgData=#{msgData},finMsg=#{finMsg},`change`=#{change} where(chatId=#{chatId})")
+    void update(String msgData, String finMsg, int chatId, String change);
 
     @Select("select userA,userB,finMsg from chat where ((userA=#{uid}) or (userB=#{uid}))order by `change`desc LIMIT 10")
     List<chat> getChatList(int uid);

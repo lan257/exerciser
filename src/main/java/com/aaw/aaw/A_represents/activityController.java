@@ -4,7 +4,6 @@ import com.aaw.aaw.B_Service.ActLogic;
 import com.aaw.aaw.H_tool.noFixFileSubmit;
 import com.aaw.aaw.O_solidObjects.activity;
 import com.aaw.aaw.O_solidObjects.simpleObjects.Result;
-import com.aaw.aaw.O_solidObjects.simpleObjects.aCon;
 import com.aaw.aaw.O_solidObjects.user;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
@@ -31,7 +30,7 @@ public class activityController {
         return new ResponseEntity<>("File uploaded successfully", HttpStatus.OK);
     }
     @PostMapping("/aaw/aConListSubmit")
-    public Result aConListSubmit(@RequestBody activity activity, MultipartFile file, HttpServletRequest request){
+    public Result aConListSubmit(@RequestBody activity activity, HttpServletRequest request){
         user jwtInfo = (user) request.getAttribute("jwtInfo");
         //加工activity
         activity.setUid(jwtInfo.getUid());
@@ -42,8 +41,13 @@ public class activityController {
     }
 
     @PostMapping("/aaw/getActList")
-    public Result getActList(HttpServletRequest request){
+    public Result getActList(){
         List<activity> activitys=AL.getActList();
         return new Result(1,"获取活动成功",activitys);
+    }
+    @PostMapping("/aaw/actSelect")
+    public Result actSelect(@RequestBody activity act){
+        activity activity=AL.getAct(act);
+        return new Result(1,"获取活动成功",activity);
     }
 }

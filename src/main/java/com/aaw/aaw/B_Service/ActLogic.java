@@ -1,6 +1,7 @@
 package com.aaw.aaw.B_Service;
 
 import com.aaw.aaw.C_Dao.ActAccesee;
+import com.aaw.aaw.C_Dao.userAccess;
 import com.aaw.aaw.O_solidObjects.activity;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,13 +16,26 @@ import java.util.List;
 public class ActLogic {
     @Autowired
     private ActAccesee AA;
+    @Autowired
+    private userAccess UA;
 
     public void aConListSubmit(activity activity) {
-        AA.aConListSubmit(activity.getUid(),activity.getChangeTime(),activity.getContext(),activity.getTitleText(),
+        AA.aConListSubmit(activity.getUid(),activity.getChangeTime(),activity.getContent(),activity.getTitleText(),
                 activity.getTitleImg(),activity.getType());
     }
 
     public List<activity> getActList() {
-        return AA.getActList();
+        List<activity> activityList = AA.getActList();
+        for (activity a:activityList
+             ) {
+            a.setU(UA.getNickname(a.getUid()));
+        }
+        return activityList;
+    }
+
+    public activity getAct(activity act) {
+        activity activity=AA.getAct(act.getAid());
+        activity.setU(UA.getMore(activity.getUid()));
+        return activity;
     }
 }

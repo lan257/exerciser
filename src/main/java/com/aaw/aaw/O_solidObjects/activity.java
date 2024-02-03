@@ -14,48 +14,31 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class activity {
+    user u;
     int aid;
     int uid;
     String changeTime;//DateTime转化成String
     String createTime;//读取DateTime
-    String context;//aCon类的列表
+    String content;//aCon类的列表
     String titleText;
     String titleImg;//一张图片的aCon
-    String commit;//commit类的列表
-    String finCommit;//commit类
     String type;//标签
+    int com;
+    int love;
+    public aCon GTitleImg(){ return new Gson().fromJson(titleImg, aCon.class);}
+    public void STitleImg(aCon aCon){titleImg=new Gson().toJson(aCon);}
+    public void addCom(){com++;}
+    public void addLove(){love++;}
     //注入修改时间
     public void SChangeTime(){
         changeTime= LocalDateTime.now().toString();
     }
     //设置活动内容
-    public void SContext(List<aCon> aConList){
-        context=new Gson().toJson(aConList);
+    public void SContent(List<aCon> aConList){
+        content=new Gson().toJson(aConList);
     }
     //获得活动内容
-    public List<aCon> GContext(){
-        return new Gson().fromJson(context, new TypeToken<List<aCon>>(){}.getType());
-    }
-    //设置评论内容
-    public void SCommit(List<commit> commitList){
-        context=new Gson().toJson(commitList);
-    }
-    //获得评论内容
-    public List<commit> GCommit(){
-        return new Gson().fromJson(commit, new TypeToken<List<commit>>(){}.getType());
-    }
-    //添加评论内容
-    public void addCommit(commit con){
-        List<commit> commitList=GCommit();
-        commitList.add(con);
-        SCommit(commitList);
-    }
-    //设置最新评论
-    public void SFinCommit(commit commit){
-        finCommit= new Gson().toJson(commit);
-    }
-    //获得最新评论
-    public commit GFinCommit(){
-        return new Gson().fromJson(finCommit, new TypeToken<commit>(){}.getType());
+    public List<aCon> GContent(){
+        return new Gson().fromJson(content, new TypeToken<List<aCon>>(){}.getType());
     }
 }

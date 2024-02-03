@@ -38,7 +38,7 @@ public class chatLogic implements Logic{
 
     public void updateChat(chat c) {
         log.info(c.toString());
-        CA.update(c.getMsgData(),c.getFinMsg(),c.getChatId());
+        CA.update(c.getMsgData(),c.getFinMsg(),c.getChatId(),LocalDateTime.now().toString());
     }
 
     public List<chatList> getChatList(user jwtInfo) {

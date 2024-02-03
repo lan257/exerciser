@@ -18,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
 @Slf4j
@@ -29,7 +30,7 @@ public class UserController {
     @Autowired
     private userLogic userLogic;
 
-    String nn;
+    String nn="/userImg/7113ada1-aacf-455d-856c-ec9a1480b829.jpg";
     @PostMapping("aaw/login")
     public Result login(@RequestBody user privateUser ) {
 
@@ -54,24 +55,27 @@ public class UserController {
     //上传图片
     @PostMapping(value = "/aaw/sign")
     public ResponseEntity<String> handleFileUpload(@RequestParam("file") MultipartFile file) throws IOException {
+        nn="n";
         nn= fileSubmit.submit(file,"userImg");
         // 处理文件上传成功逻辑
         return new ResponseEntity<>("File uploaded successfully", HttpStatus.OK);
     }
 
     @PostMapping("aaw/sign1")
-    public Result signIn(@RequestBody user u) throws IOException {
-        if (nn!=null){
+    public Result signIn(@RequestBody user u) {
+        if (!Objects.equals(nn, "n")){
+            log.info(u+"");
         u.setImg(nn);
         pUserLogic.sign(u);
         userLogic.sign(u);
         return new Result(1,"注册成功","") ;}
+//        else if (!Objects.equals(nn, "n")){
         return new Result(0,"注册失败,有可能是文件太大了","");
+//        return new Result(0,"注册失败,未知原因","");
     }
     @PostMapping("aaw/selectUser")
     public Result selectUser(@RequestBody user u){
         List<user> s =userLogic.selectUser(u);
-        log.info(s.toString());
         return new Result(1,"查询成功",s);
     }
     @PostMapping("aaw/uid/selectUser")
