@@ -4,6 +4,7 @@ import com.aaw.aaw.O_solidObjects.activity;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import java.util.List;
 
@@ -18,4 +19,10 @@ public interface ActAccesee {
 
     @Select("select * from activity where aid=#{aid}")
     activity getAct(int aid);
+
+    @Select("select com from activity where aid=#{aid}")
+    activity AddCom(int aid);
+
+    @Update("update activity set com=#{com} where aid=#{aid}")
+    void updateCom(int com ,int aid);
 }
