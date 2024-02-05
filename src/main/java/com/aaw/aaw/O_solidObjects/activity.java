@@ -6,7 +6,7 @@ import com.google.gson.reflect.TypeToken;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import com.aaw.aaw.O_solidObjects.simpleObjects.commit;
+
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -14,6 +14,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class activity {
+    boolean loveIs;
     user u;
     int aid;
     int uid;

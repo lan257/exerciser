@@ -1,11 +1,10 @@
 package com.aaw.aaw.A_represents;
 
 import com.aaw.aaw.B_Service.commitLogic;
-import com.aaw.aaw.C_Dao.ActAccesee;
 import com.aaw.aaw.H_tool.noFixFileSubmit;
 import com.aaw.aaw.O_solidObjects.activity;
 import com.aaw.aaw.O_solidObjects.simpleObjects.Result;
-import com.aaw.aaw.O_solidObjects.simpleObjects.commit;
+import com.aaw.aaw.O_solidObjects.commit;
 import com.aaw.aaw.O_solidObjects.user;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
@@ -42,9 +41,9 @@ public class commitController {
         return new Result(1,"上传成功","");
     }
     @PostMapping("/aaw/getComList")
-    public Result getComByLove(@RequestBody activity activity){
-        List<commit> commitList=CC.getByLove(activity.getAid());
+    public Result getComByLove(@RequestBody activity activity, HttpServletRequest request){
+        user jwtInfo = (user) request.getAttribute("jwtInfo");
+        List<commit> commitList=CC.getByLove(activity.getAid(),jwtInfo.getUid());
         return new Result(1,"获取成功",commitList);
     }
-
 }

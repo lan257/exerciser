@@ -10,7 +10,7 @@ import java.util.List;
 @Mapper
 public interface userAccess {
 
-    @Select("select uid from privateuser where (email=#{email}&&password=#{password})")
+    @Select("select uid from privateuser where (email=#{email} and password=#{password})")
     List<Integer> login(String email, String password);
     @Select("SELECT * FROM user WHERE (uid = #{uid} OR #{uid} = 0) AND (nickname REGEXP #{nickname}) AND (type = #{type} OR #{type} = 2)ORDER BY RAND() LIMIT 5")
     List<user> getUser(int uid, String nickname, int type);

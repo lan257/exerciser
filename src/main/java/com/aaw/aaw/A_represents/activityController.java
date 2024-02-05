@@ -40,14 +40,16 @@ public class activityController {
         return new Result(1,"上传成功","");
     }
 
-    @PostMapping("/aaw/getActList")
+    @GetMapping("/aaw/getActList")
     public Result getActList(){
         List<activity> activitys=AL.getActList();
         return new Result(1,"获取活动成功",activitys);
     }
     @PostMapping("/aaw/actSelect")
-    public Result actSelect(@RequestBody activity act){
-        activity activity=AL.getAct(act);
+    public Result actSelect(@RequestBody activity act,HttpServletRequest request){
+        user jwtInfo = (user) request.getAttribute("jwtInfo");
+        activity activity=AL.getAct(act,jwtInfo.getUid());
+        log.info("返回Android端数据");
         return new Result(1,"获取活动成功",activity);
     }
 }

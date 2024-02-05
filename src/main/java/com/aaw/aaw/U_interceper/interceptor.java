@@ -1,4 +1,5 @@
 package com.aaw.aaw.U_interceper;
+
 import com.aaw.aaw.H_tool.jwt;
 import com.aaw.aaw.O_solidObjects.user;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -10,6 +11,7 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
+
 import java.io.IOException;
 import java.util.Collections;
 
@@ -18,6 +20,7 @@ import java.util.Collections;
 
 public class interceptor implements HandlerInterceptor{
     intersect is=new intersect();
+    long begin,end,i;
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 
@@ -70,7 +73,8 @@ public class interceptor implements HandlerInterceptor{
     public void postHandle(jakarta.servlet.http.HttpServletRequest request,
                            jakarta.servlet.http.HttpServletResponse response,
                            Object handler,
-                           ModelAndView modelAndView) throws Exception {
+                           ModelAndView modelAndView) {
+        begin=System.nanoTime();
         // 在处理器方法执行后但在视图渲染之前执行的逻辑
         log.info("postHandle 方法执行，URL: "+ request.getRequestURI());
     }
@@ -79,14 +83,16 @@ public class interceptor implements HandlerInterceptor{
     public void afterCompletion(jakarta.servlet.http.HttpServletRequest request,
                                 jakarta.servlet.http.HttpServletResponse response,
                                 Object handler,
-                                Exception ex) throws Exception {
+                                Exception ex) {
+        end=System.nanoTime();
+        i=end-begin;
+        double x=i/1000000.0;
         // 在整个请求处理完成后执行的逻辑
         log.info("afterCompletion 方法执行，URL: "+ request.getRequestURI());
+        log.info(request.getRequestURI()+"执行耗时:"+x+"ms");
     }
 
     //登录检测
-
-
 }
 
 

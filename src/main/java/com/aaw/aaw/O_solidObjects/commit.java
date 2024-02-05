@@ -1,5 +1,6 @@
-package com.aaw.aaw.O_solidObjects.simpleObjects;
+package com.aaw.aaw.O_solidObjects;
 
+import com.aaw.aaw.O_solidObjects.simpleObjects.reply;
 import com.aaw.aaw.O_solidObjects.user;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -9,10 +10,13 @@ import lombok.NoArgsConstructor;
 
 import java.util.List;
 
+//事件
+//love++:1;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class commit {
+    boolean like;
     user u;
     int cid;
     int aid;
@@ -23,7 +27,7 @@ public class commit {
     String time;
     int replyNum;
     String reply;
-    public List<reply> GReply(){
+    public List<com.aaw.aaw.O_solidObjects.simpleObjects.reply> GReply(){
         return new Gson().fromJson(reply, new TypeToken<List<reply>>(){}.getType());
     }
 }

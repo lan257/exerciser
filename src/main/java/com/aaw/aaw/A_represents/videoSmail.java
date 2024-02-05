@@ -4,7 +4,6 @@ import com.aaw.aaw.B_Service.VSLogic;
 import com.aaw.aaw.O_solidObjects.VSmail;
 import com.aaw.aaw.O_solidObjects.simpleObjects.Result;
 import com.aaw.aaw.O_solidObjects.user;
-import com.aaw.aaw.O_solidObjects.video;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +12,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.io.IOException;
 import java.util.List;
 
 @Slf4j
@@ -23,13 +21,13 @@ public class videoSmail {
     @Autowired
     VSLogic vsl;
     @PostMapping("aaw/AAWVSSubmit")
-    public Result AAWVSSubmit(@RequestBody VSmail vs, HttpServletRequest request) throws IOException {
+    public Result AAWVSSubmit(@RequestBody VSmail vs, HttpServletRequest request) {
         vs=getVS(vs, request);
         vsl.submit(vs);
         return new Result(1,"上传成功","") ;
     }
     @PostMapping("aaw/AAWVSUpdate")
-    public Result AAWVSUpdate(@RequestBody VSmail vs, HttpServletRequest request) throws IOException {
+    public Result AAWVSUpdate(@RequestBody VSmail vs, HttpServletRequest request) {
         vs = getVS(vs, request);
         vsl.update(vs);
         return new Result(1,"上传成功","") ;

@@ -25,4 +25,10 @@ public interface ActAccesee {
 
     @Update("update activity set com=#{com} where aid=#{aid}")
     void updateCom(int com ,int aid);
+
+    @Select("select love from activity where aid=#{oid}")
+    int getLove(int oid);
+
+    @Update("update activity set love=#{i} where aid=#{oid}")
+    void addLove(int i, int oid);
 }
