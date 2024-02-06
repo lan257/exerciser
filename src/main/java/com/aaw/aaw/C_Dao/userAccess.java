@@ -4,6 +4,7 @@ import com.aaw.aaw.O_solidObjects.user;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import java.util.List;
 
@@ -30,6 +31,10 @@ public interface userAccess {
 
     @Select("select nickname from user where(uid=#{uid})")
     user getNickname(int uid);
-    @Select("select nickname,img from user where(uid=#{uid})")
+    @Select("select nickname,img,uid from user where(uid=#{uid})")
     user getMore(int uid);
+    @Update("UPDATE user SET fan = (SELECT COUNT(*) FROM loperator WHERE loperator.oid = #{oid} )WHERE user.uid= #{oid}")
+    void updateLove(int oid);
+    @Update("UPDATE user SET love = ( SELECT SUM(love) FROM activity WHERE uid = #{uid} ) WHERE uid = #{uid}")
+    void update(int uid);
 }

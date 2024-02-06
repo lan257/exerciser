@@ -17,11 +17,10 @@ public class fileSubmit {
         String sn = null;
         if (fn != null) {
             int index = fn.lastIndexOf(".");
-            sn = (index >= 0 && index < fn.length()) ? fn.substring(index) : null;
+            sn = index >= 0 ? fn.substring(index) : null;
         }
         // 生成新的文件名
         String nn = UUID.randomUUID() + sn;
-        String mm="123"+sn;
         // 获取项目根目录
         String projectRoot = System.getProperty("user.dir");
         // 构建保存文件的路径

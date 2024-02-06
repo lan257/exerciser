@@ -1,6 +1,7 @@
 package com.aaw.aaw.B_Service;
 
 import com.aaw.aaw.C_Dao.userAccess;
+import com.aaw.aaw.O_solidObjects.lOperator;
 import com.aaw.aaw.O_solidObjects.user;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +19,8 @@ import java.util.Objects;
 public class userLogic implements Logic {
     @Autowired
     private userAccess userAccess;
-
+    @Autowired
+    private lOperatorLogic LL;
     public user getUser_Uid(int pUid) {
         return userAccess.getUser_Uid(pUid);
     }
@@ -36,8 +38,10 @@ public class userLogic implements Logic {
         return userAccess.getUser(u.getUid(),u.getNickname(),u.getType());}
     }
 
-    public user selectUserByUid(user u) {
-        return userAccess.getUserByUid(u.getUid());
+    public user selectUserByUid(user u,int uid) {
+        user uu=userAccess.getUserByUid(u.getUid());
+        uu.setLoveIs(LL.lpis(new lOperator(uu.getUid(),1,1,uid))!=0);
+        return uu;
     }
 }
 

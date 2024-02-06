@@ -1,7 +1,6 @@
 package com.aaw.aaw.A_represents;
 
 import com.aaw.aaw.B_Service.lOperatorLogic;
-import com.aaw.aaw.O_solidObjects.commit;
 import com.aaw.aaw.O_solidObjects.lOperator;
 import com.aaw.aaw.O_solidObjects.simpleObjects.Result;
 import com.aaw.aaw.O_solidObjects.user;
@@ -19,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class lOperatorController {
     @Autowired
     private lOperatorLogic LL;
-    @PostMapping("/aaw/Love++")
+    @PostMapping("/aaw/Love+-")
     public Result comLoveAdd(@RequestBody lOperator lp, HttpServletRequest request){
         user jwtInfo = (user) request.getAttribute("jwtInfo");
         //加工数据
@@ -28,14 +27,4 @@ public class lOperatorController {
         LL.comLoveAdd(lp);
         return new Result(1,"点赞成功","");
     }
-    @PostMapping("/aaw/Love--")
-    public Result comLoveDel(@RequestBody lOperator lp, HttpServletRequest request){
-        user jwtInfo = (user) request.getAttribute("jwtInfo");
-        //加工数据
-        lp.setUid(jwtInfo.getUid());
-        //数据库处理
-        LL.comLoveDel(lp);
-        return new Result(1,"取消成功","");
-    }
-
 }

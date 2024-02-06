@@ -1,6 +1,6 @@
 package com.aaw.aaw.B_Service;
 
-import com.aaw.aaw.C_Dao.ActAccesee;
+import com.aaw.aaw.C_Dao.ActAccess;
 import com.aaw.aaw.C_Dao.commitAccess;
 import com.aaw.aaw.C_Dao.userAccess;
 import com.aaw.aaw.O_solidObjects.activity;
@@ -22,7 +22,7 @@ public class commitLogic implements Logic {
     @Autowired
     private userAccess UA;
     @Autowired
-    private ActAccesee AA;
+    private ActAccess AA;
     @Autowired
     private lOperatorLogic LL;
 
@@ -33,14 +33,25 @@ public class commitLogic implements Logic {
         AA.updateCom(a.getCom(),commit.getAid());
     }
 
-    public List<commit> getByLove(int aid, int uid) {
-        List<commit> commitList= CA.getByLove(aid);
-        for (commit c:commitList
-             ) {
-            int s=LL.lpis(new lOperator(c.getCid(),3,1,uid));
-            c.setLike(s != 0);
-            c.setU(UA.getMore(c.getUid()));
+    public List<commit> getBy(activity activity, int uid) {
+        List<commit> commitList=getByCA(activity);
+        if (commitList != null) {
+            for (commit c:commitList
+                 ) {
+                int s=LL.lpis(new lOperator(c.getCid(),3,1,uid));
+                c.setLike(s != 0);
+                c.setU(UA.getMore(c.getUid()));
+            }
         }
         return commitList;
+    }
+
+    private List<commit> getByCA(activity activity) {
+        return switch (activity.getThing()) {
+            case 1 -> CA.getByLove(activity.getAid());
+            case 2 -> CA.getByTime(activity.getAid());
+            case 3 -> CA.getOnlyUser(activity.getAid(), activity.getUid());
+            default -> null;
+        };
     }
 }

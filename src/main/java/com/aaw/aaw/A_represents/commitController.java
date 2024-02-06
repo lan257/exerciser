@@ -22,7 +22,7 @@ import java.util.List;
 @CrossOrigin(origins = {"*"})
 public class commitController {
     @Autowired
-    private commitLogic CC;
+    private commitLogic CL;
     @PostMapping(value = "/aaw/sentComImg")
     public ResponseEntity<String> handleFileUpload(@RequestParam("file") MultipartFile file, HttpServletRequest request) throws IOException {
         user jwtInfo = (user) request.getAttribute("jwtInfo");
@@ -36,14 +36,14 @@ public class commitController {
         //加工activity
         commit.setUid(jwtInfo.getUid());
         //上传数据库
-        CC.aConListSubmit(commit);
+        CL.aConListSubmit(commit);
 
         return new Result(1,"上传成功","");
     }
     @PostMapping("/aaw/getComList")
     public Result getComByLove(@RequestBody activity activity, HttpServletRequest request){
         user jwtInfo = (user) request.getAttribute("jwtInfo");
-        List<commit> commitList=CC.getByLove(activity.getAid(),jwtInfo.getUid());
+        List<commit> commitList=CL.getBy(activity,jwtInfo.getUid());
         return new Result(1,"获取成功",commitList);
     }
 }

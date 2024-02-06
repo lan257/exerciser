@@ -76,16 +76,15 @@ public class UserController {
         return new Result(1,"查询成功",s);
     }
     @PostMapping("aaw/uid/selectUser")
-    public Result selectUserByUid(@RequestBody user u){
-        user s =userLogic.selectUserByUid(u);
-        log.info(s.toString());
+    public Result selectUserByUid(@RequestBody user u,HttpServletRequest request){
+        user jwtInfo = (user) request.getAttribute("jwtInfo");
+        user s =userLogic.selectUserByUid(u,jwtInfo.getUid());
         return new Result(1,"查询成功",s);
     }
-    @PostMapping("aaw/getUserJwt")
+    @GetMapping("aaw/getUserJwt")
     public Result getUserJwt(HttpServletRequest request){
         user jwtInfo = (user) request.getAttribute("jwtInfo");
         user me= userLogic.selectUser(jwtInfo).get(0);
-        log.info(me.toString());
         return new Result(1,"提取成功",me);
     }
 }

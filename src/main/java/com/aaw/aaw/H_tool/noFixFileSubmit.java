@@ -5,7 +5,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.UUID;
 @Slf4j
 //无混淆命名文件
 public class noFixFileSubmit {
@@ -26,7 +25,6 @@ public class noFixFileSubmit {
                 File.separator + nn;
         // 创建File对象表示目标文件
         File destFile = new File(filePath);
-        nn="/"+path+"/"+nn;
         // 将上传的文件保存到目标文件
         file.transferTo(destFile);
     }

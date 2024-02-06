@@ -40,9 +40,9 @@ public class activityController {
         return new Result(1,"上传成功","");
     }
 
-    @GetMapping("/aaw/getActList")
-    public Result getActList(){
-        List<activity> activitys=AL.getActList();
+    @PostMapping("/aaw/getActList")
+    public Result getActList(@RequestBody user u){
+        List<activity> activitys=AL.getActList(u);
         return new Result(1,"获取活动成功",activitys);
     }
     @PostMapping("/aaw/actSelect")

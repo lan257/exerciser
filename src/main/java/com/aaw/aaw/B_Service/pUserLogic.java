@@ -16,10 +16,9 @@ public class pUserLogic implements Logic {
     private userAccess userAccess;
 
     public List<Integer> login(user privateUser) {
-        log.info(""+privateUser.getEmail()+privateUser.getPassword());
+        log.info(privateUser.getEmail()+privateUser.getPassword());
 
-        List<Integer> u=userAccess.login(privateUser.getEmail(),privateUser.getPassword());
-        return u;
+        return userAccess.login(privateUser.getEmail(),privateUser.getPassword());
     }
 
     public void sign(user u) {

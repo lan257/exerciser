@@ -1,7 +1,6 @@
 package com.aaw.aaw.O_solidObjects;
 
 import com.aaw.aaw.O_solidObjects.simpleObjects.reply;
-import com.aaw.aaw.O_solidObjects.user;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import lombok.AllArgsConstructor;
