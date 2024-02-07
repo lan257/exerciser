@@ -44,6 +44,7 @@ public class ActLogic {
             case 1 -> AA.getActList();//随机
             case 2 -> AA.getActListByUserSent(u.getUid());//用户发布
             case 3 -> AA.getActListByUserLove(u.getUid());//用户收藏
+            case 4 -> AA.getActListByExamain(u.getUid());//用户审核
             default -> null;
         };
     }

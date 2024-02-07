@@ -21,7 +21,7 @@ public class noFixFileSubmit {
         String projectRoot = System.getProperty("user.dir");
         // 构建保存文件的路径
         String filePath = projectRoot + File.separator + "src" + File.separator + "main" +
-                File.separator + "resources" + File.separator + "static" + File.separator + path +
+                File.separator + "resources" + File.separator + "templates" + File.separator + path +
                 File.separator + nn;
         // 创建File对象表示目标文件
         File destFile = new File(filePath);

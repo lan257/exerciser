@@ -25,7 +25,7 @@ public class chatLogic implements Logic{
 
        if (chat==null){
            String time= LocalDateTime.now().toString();
-           msg msg=new msg(c.getUserA(),"你好，我们现在可以开始私聊了",time);
+           msg msg=new msg(c.getUserB(),"你好，我们现在可以开始私聊了",time);
            c.SETFinMsg(msg);
            LocalDateTime CChange=LocalDateTime.now();
            c.addMsgData();

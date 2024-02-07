@@ -14,14 +14,14 @@ public interface ActAccess {
             "#{changeTime},#{content},#{titleText},#{titleImg},#{type})")
     void aConListSubmit(int uid, String changeTime, String content, String titleText, String titleImg, String type);
 
-    @Select("select aid,uid,titleText,titleImg,com,love from activity order by RAND() limit 10")
+    @Select("select aid,uid,titleText,titleImg,com,love from activity where (examine) order by RAND() limit 10")
     List<activity> getActList();
 
-    @Select("select * from activity where aid=#{aid}")
+    @Select("select * from activity  where(aid=#{aid} and examine) ")
     activity getAct(int aid);
-    @Select("select uid from activity where aid=#{aid}")
+    @Select("select uid from activity where (aid=#{aid} and examine)")
     int getActUid(int aid);
-    @Select("select com from activity where aid=#{aid}")
+    @Select("select com from activity where(aid=#{aid} and examine) ")
     activity AddCom(int aid);
 
     @Update("update activity set com=#{com} where aid=#{aid}")
@@ -32,10 +32,12 @@ public interface ActAccess {
 //
 //    @Update("update activity set love=#{i} where aid=#{oid}")
 //    void addLove(int i, int oid);
-    @Update("UPDATE activity SET love = (SELECT COUNT(*) FROM loperator WHERE loperator.oid = #{oid} )WHERE activity.aid= #{oid}")
+    @Update("UPDATE activity SET love = (SELECT COUNT(*) FROM loperator WHERE (loperator.oid = #{oid} and loperator.tid=1 and loperator.oType=2) )WHERE activity.aid= #{oid}")
     void updateLove(int oid);
-    @Select("select aid,uid,titleText,titleImg,com,love from activity where uid=#{uid} order by changeTime desc")
+    @Select("select aid,uid,titleText,titleImg,com,love from activity where(uid=#{uid} and examine)  order by changeTime desc")
     List<activity> getActListByUserSent(int uid);
-    @Select("SELECT aid,activity.uid,titleText,titleImg,com,love from activity  JOIN loperator ON activity.Aid = loperator.oid WHERE (loperator.uid = #{uid} and oType=2 and tid=1)")
+    @Select("SELECT aid,activity.uid,titleText,titleImg,com,love from activity  JOIN loperator ON activity.Aid = loperator.oid WHERE (examine and loperator.uid = #{uid} and oType=2 and tid=1)")
     List<activity> getActListByUserLove(int uid);
+    @Select("select aid,uid,titleText,titleImg,com,love from activity where(uid=#{uid} and examine=0)  order by changeTime desc")
+    List<activity> getActListByExamain(int uid);
 }

@@ -18,6 +18,6 @@ public interface VSAccess {
     @Update("update videosmail set name=#{name},uid=#{uid},change=#{change},also=#{also},url=#{url},type=#{type},vid=#{vid},ins=#{ins}  where (sid=#{sid})")
     void update(String name, int uid, LocalDateTime change, String also, String url, int type, int vid, int ins, int sid);
 
-    @Select("select * from videosmail where vid=#{vid} order by name")
+    @Select("select * from videosmail where (vid=#{vid} and examine) order by name")
     List<VSmail> selectVS(int vid);
 }
