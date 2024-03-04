@@ -42,6 +42,7 @@ public class UserController {
             String j = k.setJwt(u);//生成令牌
             log.info("生成令牌：" + j);
             if (u.getType() == 0) {
+                System.out.println();
                 return new Result(1, u.getNickname() +"root登录成功", j);
             } else if (u.getType() == 1) {
                 return new Result(-1, u.getNickname() +"vip登录成功", j);

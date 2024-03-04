@@ -1,15 +1,79 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ch" xmlns:v-find="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>缘风官方网站</title>
+    <script src="vue.js" ></script>
+    <script src="fetch.js"></script>
 </head>
 <body>
-<h1>获取安装包</h1><br>
+<div id="index">
+    <h1>{{getPackage}}</h1>
+    <div v-show="show">
+        <button @click="iu--">-</button>
+        {{iu}}
+        <button @click="iu++">+</button>
+        <br>
+    </div>
+    <button @click="change">{{now}}</button>
+    <p>{{user.name+user.id}}</p>
+    <div v-html="alt"></div>
 <a href="../androidApk/缘风1.4稳定版.apk" download="">下载1.4测试版</a><br>
 <a href="../androidApk/app-debug.apk" download="">下载1.4稳定版</a><br>
 <a href="../../templates/test/app-debug-androidTest.apk" download="">下载1.4debug版</a><br>
-<!--<a href="../../templates/userImg/ba16bea2-27e2-4848-9d54-118fcaf2c5ff.jpeg" download="">下载图片</a><br>-->
-<!--获取服务器最新地址：https://cf60-240e-43d-4120-913-414f-9c86-7195-33a7.ngrok-free.app-->
+    <button @click="buy(cole)">可乐{{cole}}元</button>
+    <button @click="buy(hamburg)">汉堡{{hamburg}}元</button><br>
+    现金{{money}}元
+    <br>
+    <img v-if="is" :src="data[0].img" alt="">
+    <button @click="test()">测试连接</button>
+
+</div>
 </body>
+<script>
+    const index=new Vue({
+        el:'#index',
+        data:{
+            iu:45,
+            money:100,
+            getPackage:'获取安装包',
+            user:{
+                id:25,
+                name:'张三',
+            },
+            cole:5,
+            hamburg:10,
+            show:true,
+            now:"展示页数",
+            data:"",
+            url:"1---icon.png",
+            is:false,
+            alt: '<a href="https://www.baidu.com" >测试链接</a>'
+        },
+        methods:{
+            change(){
+                if (this.show){
+                    this.now="隐藏页数"
+                }else {
+                    this.now="展示页数"
+                }
+                this.show=!this.show
+            },
+            buy(a){
+                console.log(a);
+                this.money= this.money>a?this.money-a:0
+            },
+            async test() {
+                const url = "/selectUser";
+                const data1={nickname:"予"
+                }
+                const result = await Fetch(url,data1);
+                this.data=result.data;
+                alert(this.data)
+                this.data[0].img="http://localhost:8080/uploads"+this.data[0].img
+                this.is=true
+            }
+        }
+    })
+</script>
 </html>

@@ -1,6 +1,6 @@
 package com.aaw.aaw;
 
-import com.aaw.aaw.U_interceper.interceptor;
+import com.aaw.aaw.U_interceper.Interceptor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -18,8 +18,8 @@ public class AndroidAndWebApplication  implements WebMvcConfigurer {
         SpringApplication.run(AndroidAndWebApplication.class, args);
     }
     @Bean
-    public interceptor customInterceptor() {
-        return new interceptor();
+    public Interceptor customInterceptor() {
+        return new Interceptor();
     }
 
     @Override
