@@ -17,7 +17,7 @@ public interface apiAccess {
     @Insert("insert into api (address, type, sort, getData, reData, errorData, `use`, other) VALUE (#{address},#{type},#{sort},#{getData},#{reData},#{errorData},#{use},#{other})")
     void addApi(String address, String type, String sort, String getData, String reData, String errorData, String use, String other);
 
-    @Update("update api set address=#{address},type=#{type},sort=#{sore},getData=#{getData},reData=#{reData},errorData=#{errorData},`use`=#{use},other=#{other} where(ApiId=#{apiId}) ")
+    @Update("update api set address=#{address},type=#{type},sort=#{sort},getData=#{getData},reData=#{reData},errorData=#{errorData},`use`=#{use},other=#{other} where(ApiId=#{apiId}) ")
     void updateApi(int apiId, String address, String type, String sort, String getData, String reData, String errorData, String use, String other);
 
     @Delete("delete from api where(ApiId= #{apiId})")

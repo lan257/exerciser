@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class api {
-    int ApiId;//接口id
+    int apiId;//接口id
     String address;//接口地址
     String type;//接口请求类型
     String sort;//接口分类
@@ -17,4 +17,5 @@ public class api {
     String errorData;//报错信息
     String use;//接口作用
     String other;//接口备注
+
 }

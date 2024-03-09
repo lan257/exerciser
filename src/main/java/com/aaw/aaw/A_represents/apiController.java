@@ -18,6 +18,7 @@ public class apiController {
     private apiLogic apiLogic;
     @PostMapping("/api/id")
     public Result getApiById(@RequestBody api api){
+        log.info("api:"+api);
         api reapi= apiLogic.getApiById(api);
         return new Result(1,"获得特定api",reapi);
     }
@@ -26,17 +27,18 @@ public class apiController {
         List<api> apiList= apiLogic.getApi();
         return new Result(1,"所有api",apiList);
     }
-    @PostMapping("/aww/api")
+    @PostMapping("/aaw/api")
     public Result addApi(@RequestBody api api){
         apiLogic.addApi(api);
         return new Result(1,"添加api成功",api);
     }
-    @PutMapping("/aww/api")
+    @PutMapping("/aaw/api")
     public Result updateApi(@RequestBody api api){
+        log.info("api:"+api);
         apiLogic.updateApi(api);
         return new Result(1,"修改api成功",api);
     }
-    @DeleteMapping("/aww/root/api")
+    @DeleteMapping("/aaw/root/api")
     public Result delApi(@RequestBody api api){
         apiLogic.delApi(api);
         return new Result(1,"删除api成功","");
