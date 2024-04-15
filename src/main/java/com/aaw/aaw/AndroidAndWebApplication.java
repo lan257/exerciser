@@ -27,6 +27,4 @@ public class AndroidAndWebApplication  implements WebMvcConfigurer {
         registry.addInterceptor(customInterceptor())
                 .addPathPatterns("/aaw/**"); // 拦截所有路径 ;// 拦截以 / 开头的所有路径
     }
-
-
 }

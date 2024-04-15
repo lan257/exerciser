@@ -11,7 +11,7 @@ public interface apiAccess {
     @Select("select * from api where (ApiId=#{apiId})")
     api getApiById(int apiId);
 
-    @Select("select * from api")
+    @Select("select address,type,sort from api order by address")
     List<api> getApi();
 
     @Insert("insert into api (address, type, sort, getData, reData, errorData, `use`, other) VALUE (#{address},#{type},#{sort},#{getData},#{reData},#{errorData},#{use},#{other})")
