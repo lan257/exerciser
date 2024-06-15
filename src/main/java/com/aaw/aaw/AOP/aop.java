@@ -1,14 +1,10 @@
 package com.aaw.aaw.AOP;
 
-import com.google.gson.JsonObject;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
-import org.json.JSONObject;
 import org.springframework.stereotype.Component;
-
-import java.lang.reflect.Array;
 import java.util.Arrays;
 
 @Aspect

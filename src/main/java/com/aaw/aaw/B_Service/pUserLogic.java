@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
 @Slf4j
@@ -15,13 +16,13 @@ public class pUserLogic implements Logic {
     @Autowired
     private userAccess userAccess;
 
-    public List<Integer> login(user privateUser) {
-        log.info(privateUser.getEmail()+privateUser.getPassword());
-
+    public List<Integer> login(user privateUser) throws NoSuchAlgorithmException {
+        privateUser.passwordEnc();
         return userAccess.login(privateUser.getEmail(),privateUser.getPassword());
     }
 
-    public void sign(user u) {
+    public void sign(user u) throws NoSuchAlgorithmException {
+        u.passwordEnc();
         userAccess.pusign(u.getEmail(),u.getPassword());
     }
 }

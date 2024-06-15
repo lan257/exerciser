@@ -23,6 +23,10 @@ public class Interceptor implements HandlerInterceptor{
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 
+        String ipAddress=request.getHeader("X-Forwarded-For");
+        if (ipAddress == null) {
+            ipAddress=request.getRemoteAddr();
+        }
         if (request.getMethod().equals(HttpMethod.OPTIONS.name())) {
             // 如果是OPTIONS请求，就直接返回true，跳过后续的拦截器和控制器方法
             return true;
@@ -35,6 +39,7 @@ public class Interceptor implements HandlerInterceptor{
         String token = request.getHeader("Authorization");
         log.info("jwt令牌："+token);
         log.info("请求开始，URL: "+ request.getRequestURI());
+        log.info("请求源"+ipAddress);
         user u;
         jwt key = new jwt();
         try {

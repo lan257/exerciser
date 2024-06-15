@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
@@ -42,6 +41,14 @@ public class userLogic implements Logic {
         user uu=userAccess.getUserByUid(u.getUid());
         uu.setLoveIs(LL.lpis(new lOperator(uu.getUid(),1,1,uid))!=0);
         return uu;
+    }
+
+    public void baUpdate(int uid, String buyAddress) {
+        userAccess.baUpdate(uid,buyAddress);
+    }
+
+    public void ipUpdate(int uid, String ipAddress) {
+        userAccess.ipUpdate(uid,ipAddress);
     }
 }
 

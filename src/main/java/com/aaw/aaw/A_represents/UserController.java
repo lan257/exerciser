@@ -13,8 +13,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
 import java.util.Objects;
 
@@ -29,15 +29,21 @@ public class UserController {
 
     String nn="/userImg/7113ada1-aacf-455d-856c-ec9a1480b829.jpg";
     @PostMapping("aaw/login")
-    public Result login(@RequestBody user privateUser ) {
-
+    public Result login(@RequestBody user privateUser,HttpServletRequest request) throws NoSuchAlgorithmException {
+        String ipAddress=request.getHeader("X-Forwarded-For");
+        if (ipAddress == null) {
+            ipAddress=request.getRemoteAddr();
+        }
+        log.info("登录请求源"+ipAddress);
         List<Integer> list = pUserLogic.login(privateUser);//调取数据库查询用户
         if (list.isEmpty()) {
-            return new Result(0, "登录失败,邮箱或密码错误", "邮箱或密码错误");
+            return new Result(0, "登录失败,邮箱或密码错误", "");
         } else {
             //根据list.get(0).getUid读取数据库获取user信息生成jwt令牌返回数据;
             int pUid = list.get(0);
             user u= userLogic.getUser_Uid(pUid);
+            if(!Objects.equals(u.getIpAddress(), ipAddress)){return new Result(0, "是否新设备登录？，", "");}
+            userLogic.ipUpdate(u.getUid(),u.getIpAddress());
             jwt k = new jwt();
             String j = k.setJwt(u);//生成令牌
             log.info("生成令牌：" + j);
@@ -60,7 +66,7 @@ public class UserController {
     }
 
     @PostMapping("aaw/sign1")
-    public Result signIn(@RequestBody user u) {
+    public Result signIn(@RequestBody user u) throws NoSuchAlgorithmException {
         if (!Objects.equals(nn, "n")){
             log.info(u+"");
         u.setImg(nn);
@@ -87,5 +93,11 @@ public class UserController {
         user jwtInfo = (user) request.getAttribute("jwtInfo");
         user me= userLogic.selectUser(jwtInfo).get(0);
         return new Result(1,"提取成功",me);
+    }
+    @PostMapping("/aaw/baUpdate")
+    public Result baUpdate(@RequestBody user u, HttpServletRequest request){
+        user jwtInfo = (user) request.getAttribute("jwtInfo");
+        userLogic.baUpdate(jwtInfo.getUid(),u.getBuyAddress());
+        return new Result(1,"修改成功","");
     }
 }

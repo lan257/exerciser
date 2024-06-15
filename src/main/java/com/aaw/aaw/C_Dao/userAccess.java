@@ -19,7 +19,7 @@ public interface userAccess {
     user getUser_Uid(int pUid);
     @Insert("insert into privateuser (email, password) VALUE (#{email},#{password})")
     void pusign(String email, String password);
-    @Insert("insert into user (uid,nickname,`change`,img) VALUE (#{uid}, #{nickname},#{change},#{img})")
+    @Insert("insert into user (uid,nickname,`change`,img,buyAddress) VALUE (#{uid}, #{nickname},#{change},#{img},'暂未设置')")
     void usign(int uid, String nickname, String email,String img, String change);
 //    @Select("select * from user")
     @Select("select * from user where (examine) ORDER BY RAND() LIMIT 5")
@@ -35,4 +35,9 @@ public interface userAccess {
     void updateLove(int oid);
     @Update("UPDATE user SET love = ( SELECT SUM(love) FROM activity WHERE uid = #{uid} ) WHERE uid = #{uid}")
     void update(int uid);
+    @Update("update user set buyAddress = #{buyAddress} where uid = #{uid} ")
+    void baUpdate(int uid, String buyAddress);
+
+    @Update("update user set ipAddress = #{ipAddress} where uid=#{uid}")
+    void ipUpdate(int uid, String ipAddress);
 }
