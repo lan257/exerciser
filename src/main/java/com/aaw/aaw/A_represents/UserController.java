@@ -42,8 +42,8 @@ public class UserController {
             //根据list.get(0).getUid读取数据库获取user信息生成jwt令牌返回数据;
             int pUid = list.get(0);
             user u= userLogic.getUser_Uid(pUid);
-            if(!Objects.equals(u.getIpAddress(), ipAddress)){return new Result(0, "是否新设备登录？，", "");}
-            userLogic.ipUpdate(u.getUid(),u.getIpAddress());
+            if(!Objects.equals(u.getIpAddress(), ipAddress)){log.info( new Result(0, "是否新设备登录？默认登陆", "").toString());}
+            userLogic.ipUpdate(u.getUid(),ipAddress);
             jwt k = new jwt();
             String j = k.setJwt(u);//生成令牌
             log.info("生成令牌：" + j);
@@ -82,7 +82,7 @@ public class UserController {
         List<user> s =userLogic.selectUser(u);
         return new Result(1,"查询成功",s);
     }
-    @PostMapping("aaw/uid/selectUser")
+    @PostMapping("/aaw/uid/selectUser")
     public Result selectUserByUid(@RequestBody user u,HttpServletRequest request){
         user jwtInfo = (user) request.getAttribute("jwtInfo");
         user s =userLogic.selectUserByUid(u,jwtInfo.getUid());
@@ -92,6 +92,11 @@ public class UserController {
     public Result getUserJwt(HttpServletRequest request){
         user jwtInfo = (user) request.getAttribute("jwtInfo");
         user me= userLogic.selectUser(jwtInfo).get(0);
+        String ipAddress=request.getHeader("X-Forwarded-For");
+        if (ipAddress == null) {
+            ipAddress=request.getRemoteAddr();
+        }
+        if(!Objects.equals(me.getIpAddress(), ipAddress)){return new Result(0, "有新设备登录，已被顶出", "");}
         return new Result(1,"提取成功",me);
     }
     @PostMapping("/aaw/baUpdate")

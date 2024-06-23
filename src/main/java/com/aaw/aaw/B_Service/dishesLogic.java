@@ -36,4 +36,10 @@ public class dishesLogic implements Logic {
     public void cIs(int did) {
         dA.cIs(did);
     }
+
+    public void del(int did) {dA.del(did);
+    }
+
+    public void numAdd(int did, int num) {dA.numAdd(did,num);
+    }
 }

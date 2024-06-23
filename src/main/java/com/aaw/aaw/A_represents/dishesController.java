@@ -40,9 +40,19 @@ public class dishesController {
         return new Result(1,"查找成功",dishesList);
     }
     //修改停售起售
-    @GetMapping("/aaw/dishes/is")
+    @PostMapping("/aaw/dishes/is")
     public Result eIs(@RequestBody dishes dishes){
         dL.cIs(dishes.getDid());
         return new Result(1,"修改成功","");
+    }
+    @PostMapping("/aaw/dishes/del")
+    public  Result del(@RequestBody dishes dishes){
+        dL.del(dishes.getDid());
+        return new Result(1,"删除成功","");
+    }
+    @PostMapping("/aaw/dishes/numAdd")
+    public  Result numAdd(@RequestBody dishes dishes,int num){
+        dL.numAdd(dishes.getDid(),num);
+        return new Result(1,"删除成功","");
     }
 }

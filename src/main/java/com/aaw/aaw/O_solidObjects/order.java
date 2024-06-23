@@ -8,11 +8,16 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class order {
+    dishes dishes;
     int did;
     int uid;
-    String creatTime;
+    String createTime;
     String changeTime;
     byte isBuy;
+    int finStatus;
     String address;
     int oid;
+    int num;
+    int del;
+
 }

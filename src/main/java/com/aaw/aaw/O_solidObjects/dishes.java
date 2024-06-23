@@ -11,9 +11,12 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class dishes {
     int uid;
-    int name;
-    int price;
+    String name;
+    double price;
     int did;
     String ct;
     String et;//编辑时间
+    int isCanBuy;
+    int num;
+    int zero=0;
 }
