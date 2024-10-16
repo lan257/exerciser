@@ -53,6 +53,6 @@ public class dishesController {
     @PostMapping("/aaw/dishes/numAdd")
     public  Result numAdd(@RequestBody dishes dishes,int num){
         dL.numAdd(dishes.getDid(),num);
-        return new Result(1,"删除成功","");
+        return new Result(1,"添加成功","");
     }
 }

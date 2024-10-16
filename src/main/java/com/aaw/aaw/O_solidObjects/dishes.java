@@ -10,13 +10,13 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 public class dishes {
-    int uid;
+
+    int num;int uid;
     String name;
     double price;
     int did;
     String ct;
     String et;//编辑时间
     int isCanBuy;
-    int num;
     int zero=0;
 }

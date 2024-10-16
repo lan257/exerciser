@@ -17,7 +17,6 @@ public class jwt {
         claims.put("nickName",user.getNickname());
         claims.put("userType",user.getType());
         //System.out.println(jwt);
-
         return Jwts.builder()
                 .signWith(SignatureAlgorithm.HS256,"androidAndWeb")//安卓web跨平台，2024.1.11
                 .setClaims(claims)//内存数据
