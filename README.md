@@ -16,10 +16,14 @@ mysql : Ver 8.3.0 for Win64 on x86_64
 ## 服务器配置
 
 ### docker镜像
-1.在dockers 官网下载并安装合适的版本
-2.注册账号并登录
-3.下载安装该镜像 ‘docker push lan258/aaw:tagname’
-4.运行该镜像
+1.在dockers 官网下载并安装合适的版本  
+
+2.注册账号并登录  
+
+3.下载安装该镜像 ‘docker push lan258/aaw:tagname’  
+
+4.运行该镜像  
+
 
 ### windows配置
 1.根据上述环境 配置环境  
