@@ -8,6 +8,12 @@
 采用springboot框架开发后端，使用MySql,mybatis管理数据库，采用jwt，拦截器登录校验保护用户数据与管理用户权限。  
 使用哈希编码加密敏感数据，已在release 发布编译服务器jar文件，配置Dockerfile,可直接用于服务器部署。
 
+## 展示
+![菜品查询](imgShow/菜品查询.png)  
+![帖子查询](imgShow/帖子查询.png) 
+![校验登录](imgShow/校验登录.png) 
+![用户查询](imgShow/用户查询.png) 
+
 ## 配置环境
 jdk:OpenJDK 21.0.1  
 端口：8080  
@@ -23,7 +29,6 @@ mysql : Ver 8.3.0 for Win64 on x86_64
 3.下载安装该镜像 ‘docker push lan258/aaw:tagname’  
 
 4.运行该镜像  
-
 
 ### windows配置
 1.根据上述环境 配置环境  
