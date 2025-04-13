@@ -13,7 +13,7 @@ import java.util.List;
 @Slf4j
 @Service
 @RestController
-public class dishesLogic implements Logic {
+public class dishesLogic{
     @Autowired
     private dishesAccess dA;
 

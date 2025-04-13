@@ -5,9 +5,10 @@ import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
-
+@Repository
 @Mapper
 public interface ActAccess {
     @Insert("insert into activity (uid, changeTime, content, titleText, titleImg, type) VALUE (#{uid}," +
@@ -27,11 +28,6 @@ public interface ActAccess {
     @Update("update activity set com=#{com} where aid=#{aid}")
     void updateCom(int com ,int aid);
 
-//    @Select("select love from activity where aid=#{oid}")
-//    int getLove(int oid);
-//
-//    @Update("update activity set love=#{i} where aid=#{oid}")
-//    void addLove(int i, int oid);
     @Update("UPDATE activity SET love = (SELECT COUNT(*) FROM loperator WHERE (loperator.oid = #{oid} and loperator.tid=1 and loperator.oType=2) )WHERE activity.aid= #{oid}")
     void updateLove(int oid);
     @Select("select aid,uid,titleText,titleImg,com,love from activity where(uid=#{uid} and examine)  order by changeTime desc")

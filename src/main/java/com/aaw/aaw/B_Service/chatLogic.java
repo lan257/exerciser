@@ -17,7 +17,7 @@ import java.util.List;
 @Slf4j
 @Service
 @RestController
-public class chatLogic implements Logic{
+public class chatLogic{
     @Autowired
     private chatAccess CA;
     public chat selectChat(chat c) {
