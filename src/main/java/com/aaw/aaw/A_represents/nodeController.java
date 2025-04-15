@@ -3,6 +3,7 @@ package com.aaw.aaw.A_represents;
 import com.aaw.aaw.B_Service.nodeMapper;
 import com.aaw.aaw.O_solidObjects.mindMap.node;
 import com.aaw.aaw.O_solidObjects.simpleObjects.Result;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,8 +24,11 @@ public class nodeController {
     * 如果有，则继续查询B的右节点C的右节点，直到无，N.right=id
     */
     @Transactional
-    @PostMapping("/aaw/nodeAdd")
+    @PostMapping("/aaw/node")
     public Result nodeAdd(@RequestBody node node){
+        // 查询父节点
+        node parent = nodeMapper.selectById(node.getX());
+        node.setMapId(parent.getMapId());
         nodeMapper.insert(node);
         node.setPreId(node.getNodeId());
         node.setNextId(node.getNodeId());
@@ -33,15 +37,10 @@ public class nodeController {
             // 如果X为0，表示该节点为根节点，直接返回成功
             return new Result(1, "添加成功", nodeMapper.updateById(node));
         }
-
-        // 查询父节点
-        node parent = nodeMapper.selectById(node.getX());
         if(parent.getLeftValue() == 0){
             // 如果父节点没有左子节点
             parent.setLeftValue(node.getNodeId());
             nodeMapper.updateById(parent);
-            nodeMapper.updateById(node);
-            return new Result(1, "添加成功", 1);
         } else {
             // 从父节点的左子节点开始遍历右链
             node current = nodeMapper.selectById(parent.getLeftValue());
@@ -50,15 +49,13 @@ public class nodeController {
             while (current.getRightValue() != 0) {
                 current = nodeMapper.selectById(current.getRightValue());
             }
-
             // 将新节点挂到当前节点的右子树
             current.setRightValue(node.getNodeId());
             // 只需要更新当前节点和新节点
             nodeMapper.updateById(current);
-            nodeMapper.updateById(node);
-
-            return new Result(1, "添加成功", 1);
         }
+        nodeMapper.updateById(node);
+        return new Result(1, "添加成功", 1);
 
     }
 
@@ -106,18 +103,47 @@ public class nodeController {
         */
     }
     //删除节点
-    @DeleteMapping("/aaw/node/del")
-    public Result nodeDel(int nid){
+    @DeleteMapping("/aaw/node/{nid}")
+    public Result nodeDel(@PathVariable int nid){
+        // 查询节点
+        node node=nodeMapper.selectById(nid);
+        //将数据库中right_value列为nid的节点的right_value值设置为node.getRightValue()
+        UpdateWrapper<node> updateWrapper = new UpdateWrapper<>();
+        updateWrapper.eq("right_value", nid) // 根据right_value进行匹配
+                .set("right_value", node.getRightValue()); // 设置要更新的right_value字段
+        nodeMapper.update(null, updateWrapper);
+        updateWrapper = new UpdateWrapper<>();
+        updateWrapper.eq("left_value", nid)
+                .set("left_value",node.getRightValue());
+        nodeMapper.update(null, updateWrapper);
+        //将node的左子树全部删除
+        if (node.getLeftValue()!=0){
+        deleteNode(node.getLeftValue());}
         nodeMapper.deleteById(nid);
         return new Result(1,"删除成功","删除成功");
     }
     //修改节点
-    @PostMapping("/aaw/node/update")
+    @PutMapping("/aaw/node")
     public Result nodeDel(@RequestBody node node){
-        nodeMapper.updateById(node);
+        UpdateWrapper<node> updateWrapper = new UpdateWrapper<>();
+        updateWrapper.eq("node_id", node.getNodeId()) // 根据ID进行匹配
+                .set("card", node.getContent()) // 设置要更新的card字段
+                .set("title", node.getTitle()); // 设置要更新的title字段
+        nodeMapper.update(null, updateWrapper);
         return new Result(1,"修改成功","修改成功");
     }
+    //将node的左子树和右子树全部删除
+    public void deleteNode(int nid){
+        node node=nodeMapper.selectById(nid);
+        if(node.getLeftValue()!=0){
+            deleteNode(node.getLeftValue());
 
+        }
+        if(node.getRightValue()!=0){
+            deleteNode(node.getRightValue());
+        }
+        nodeMapper.deleteById(nid);
+    }
 
 
 }

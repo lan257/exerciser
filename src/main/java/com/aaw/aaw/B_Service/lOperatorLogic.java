@@ -28,7 +28,7 @@ public class lOperatorLogic implements Logic {
     }
     public int lpis(lOperator lp) {
         try {
-            return LA.lpis(lp.getOid(),lp.getTid(),lp.getUid(),lp.getOType());
+            return LA.lpis(Math.toIntExact(lp.getOid()), Math.toIntExact(lp.getTid()), Math.toIntExact(lp.getUid()), Math.toIntExact(lp.getOType()));
         }catch (BindingException e){return 0;}
 
     }
@@ -36,7 +36,7 @@ public class lOperatorLogic implements Logic {
         switch (lp.getTid()) {
             case 1://活动收藏
                 if (lpis(lp) == 0) {
-                    LA.add(lp.getOid(), lp.getTid(), lp.getUid(), lp.getOType());
+                    LA.add(Math.toIntExact(lp.getOid()), Math.toIntExact(lp.getTid()), Math.toIntExact(lp.getUid()), Math.toIntExact(lp.getOType()));
                     updateLove(lp);
                 }
                 break;
@@ -52,14 +52,14 @@ public class lOperatorLogic implements Logic {
     private void updateLove(lOperator lp) {
         switch (lp.getOType()) {
             case 1:
-                UA.updateLove(lp.getOid());
+                UA.updateLove(Math.toIntExact(lp.getOid()));
                 break;
             case 2:
-                AA.updateLove(lp.getOid());
-                UA.update(AA.getActUid(lp.getOid()));
+                AA.updateLove(Math.toIntExact(lp.getOid()));
+                UA.update(AA.getActUid(Math.toIntExact(lp.getOid())));
                 break;
             case 3:
-                CA.updateLove(lp.getOid());
+                CA.updateLove(Math.toIntExact(lp.getOid()));
                 break;
         }
     }

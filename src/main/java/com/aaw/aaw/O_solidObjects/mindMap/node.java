@@ -9,6 +9,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,12 +18,12 @@ import java.util.List;
 @NoArgsConstructor
 @TableName("node")
 public class node {
-    @TableId(type = IdType.AUTO)
+    @TableId(type = IdType.AUTO, value = "node_id")
     Integer nodeId;
     int mapId;//包含该节点的思维导图id
     String title;//节点标题
-    String card;// 卡片信息
-    LocalDateTime creatTime;
+    String content;// 卡片信息
+    LocalDateTime createTime;
     int wordSize,underLine,delLine;
     String wordStyle,wordColor;
     int leftValue,rightValue;//左，右节点id
@@ -30,6 +31,12 @@ public class node {
 
     //--------------以上元素一一对应数据库内的元素
     //以下元素为转换成二叉树时需要的元素
+    @TableField(exist = false)
+    String time;
+    public node setTime() {
+        time= createTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+        return this;
+    }
     @TableField(exist = false)
     int x;
     @TableField(exist = false)

@@ -15,7 +15,8 @@ import java.util.Objects;
 @Slf4j
 @Service
 @RestController
-public class userLogic implements Logic {
+
+public class userLogic {
     @Autowired
     private userAccess userAccess;
     @Autowired
@@ -42,7 +43,9 @@ public class userLogic implements Logic {
         uu.setLoveIs(LL.lpis(new lOperator(uu.getUid(),1,1,uid))!=0);
         return uu;
     }
-
+    public user selectById(int uid){
+        return userAccess.getUserByUid(uid);
+    }
     public void baUpdate(int uid, String buyAddress) {
         userAccess.baUpdate(uid,buyAddress);
     }
