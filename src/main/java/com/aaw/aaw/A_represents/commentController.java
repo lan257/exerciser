@@ -1,5 +1,6 @@
 package com.aaw.aaw.A_represents;
 
+import com.aaw.aaw.B_Service.contractMapper;
 import com.aaw.aaw.B_Service.userLogic;
 import com.aaw.aaw.O_solidObjects.mindMap.comment;
 import com.aaw.aaw.O_solidObjects.simpleObjects.Result;
@@ -24,6 +25,7 @@ public class commentController {
     private commentMapper commentMapper;
     @Autowired
     private userLogic userLogic;
+
     //注册（添加评论）
     @PostMapping("/aaw/comment")
     @Transactional

@@ -15,8 +15,6 @@ import org.springframework.web.bind.annotation.*;
 public class nodeController {
     @Autowired
     private nodeMapper nodeMapper;
-    @Autowired
-    private mindMapController mindMapController;
     //根据父节点添加子节点
     /*
     * 检查父节点A左节点是否有值，如果无，直接父节点A.left=该节点id，
@@ -82,11 +80,13 @@ public class nodeController {
      * B->pro->next=A->next,A->next=B,A->next->pro=B->pro,B->pro=A,
      *
      * */
-    @PostMapping("/aaw/nodeConnection")
-    public Result nodeConnection(@RequestBody node node){
-        node nodeA=nodeMapper.selectById(node.getNodeId());//A
-        node nodeB=nodeMapper.selectById(node.getX());//B
-    node nodeANext=nodeMapper.selectById(nodeA.getNextId());//ANext
+
+    //关联节点,合同需要确认
+
+    public Result nodeConnection(Integer au,Integer bu){
+        node nodeA=nodeMapper.selectById(au);//A
+        node nodeB=nodeMapper.selectById(bu);//B
+        node nodeANext=nodeMapper.selectById(nodeA.getNextId());//ANext
         node nodeBPro=nodeMapper.selectById(nodeB.getPreId());//BPro
         nodeBPro.setNextId(nodeA.getNextId());
         nodeA.setNextId(nodeB.getNodeId());
@@ -127,7 +127,7 @@ public class nodeController {
     public Result nodeDel(@RequestBody node node){
         UpdateWrapper<node> updateWrapper = new UpdateWrapper<>();
         updateWrapper.eq("node_id", node.getNodeId()) // 根据ID进行匹配
-                .set("card", node.getContent()) // 设置要更新的card字段
+                .set("content", node.getContent()) // 设置要更新的card字段
                 .set("title", node.getTitle()); // 设置要更新的title字段
         nodeMapper.update(null, updateWrapper);
         return new Result(1,"修改成功","修改成功");

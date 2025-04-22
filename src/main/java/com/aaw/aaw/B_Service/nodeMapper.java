@@ -9,6 +9,5 @@ import org.springframework.web.bind.annotation.RestController;
 
 @Service
 @RestController
-@Repository
 public interface nodeMapper extends BaseMapper<node> {
 }
