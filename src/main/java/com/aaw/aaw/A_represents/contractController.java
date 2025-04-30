@@ -29,6 +29,7 @@ public class contractController {
         log.info("注册合同:"+contract);
         //用户本身先自动签署合同
         user jwtInfo = (user) request.getAttribute("jwtInfo");
+
         if(contract.getAu()==jwtInfo.getUid()){contract.setAu(0);}
         if(contract.getBu()==jwtInfo.getUid()){contract.setBu(0);}
         //检查合同双方是否均确定签署
@@ -83,6 +84,9 @@ public class contractController {
             case 3:
                 data= execute3(contract);//内容审核合同
                 break;
+                case 4:
+                    data= execute4(contract);//取消关联合同
+                    break;
             default:
                 data= new Result(0,"合同类型不存在","合同执行失败");
                 break;
@@ -104,6 +108,10 @@ public class contractController {
         return new Result(1,"内容审核合同执行成功","内容审核功能未开启");
     }
 
+    //取消关联合同执行
+    private Result execute4(contract contract) {
+        return new Result(1,"取消关联合同执行成功",nodeController.nodeConnectionDel(contract.getAid()));
+    }
 
 
 
